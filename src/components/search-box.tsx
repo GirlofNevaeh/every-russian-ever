@@ -1,9 +1,11 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { isFullName } from "@/data/names";
+import { useI18n } from "@/i18n/provider";
 
 export function SearchBox({ initial = "" }: { initial?: string }) {
   const navigate = useNavigate();
+  const { tx } = useI18n();
   const [text, setText] = useState(initial);
   const [ready, setReady] = useState<string | null>(null);
 
@@ -25,7 +27,7 @@ export function SearchBox({ initial = "" }: { initial?: string }) {
   return (
     <div className="no-print">
       <label className="block text-base font-semibold text-neva" htmlFor="site-search">
-        Search
+        {tx("Search")}
       </label>
       <input
         id="site-search"
@@ -40,7 +42,7 @@ export function SearchBox({ initial = "" }: { initial?: string }) {
           else finish(text, true);
         }}
         className="mt-2 min-h-11 w-full rounded-md border-2 border-neva bg-card px-3 text-lg text-ink"
-        placeholder="Type a name, then press Enter"
+        placeholder={tx("Type a name, then press Enter")}
         autoComplete="off"
       />
       {ready ? (
@@ -53,7 +55,7 @@ export function SearchBox({ initial = "" }: { initial?: string }) {
             onClick={() => send(ready)}
             className="mt-3 inline-flex min-h-11 items-center rounded-md bg-banner px-4 font-semibold text-paper"
           >
-            Send
+            {tx("Send")}
           </button>
         </div>
       ) : null}

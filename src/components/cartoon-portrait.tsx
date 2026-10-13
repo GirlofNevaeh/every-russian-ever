@@ -1,4 +1,5 @@
 import { lookFor, type HairStyle, type Look } from "@/data/looks";
+import { useI18n } from "@/i18n/provider";
 
 const SKIN: Record<Look["skin"], string> = {
   fair: "#F3C9A8",
@@ -104,6 +105,7 @@ function Hair({ style, color }: { style: HairStyle; color: string }) {
 
 export function CartoonPortrait({ slug, name }: { slug: string; name: string }) {
   const portrait = lookFor(slug);
+  const { txf } = useI18n();
   const skin = SKIN[portrait.skin];
   const hair = HAIR[portrait.hair];
   const fringe =
@@ -117,7 +119,7 @@ export function CartoonPortrait({ slug, name }: { slug: string; name: string }) 
     <svg
       viewBox="0 0 240 280"
       role="img"
-      aria-label={`Cartoon portrait of ${name}`}
+      aria-label={txf("Cartoon portrait of {name}", { name })}
       className="aspect-[6/7] w-full rounded-card border border-neva/20 bg-card"
     >
       <rect width="240" height="280" fill="#f4f6f8" />

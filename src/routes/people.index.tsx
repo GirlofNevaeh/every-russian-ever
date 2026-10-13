@@ -3,10 +3,12 @@ import { useMemo, useState } from "react";
 import { CartoonPortrait } from "@/components/cartoon-portrait";
 import { SearchBox } from "@/components/search-box";
 import { inventions, people, periods, roles, type Period, type Role } from "@/data/people";
+import { useI18n } from "@/i18n/provider";
 
 export const Route = createFileRoute("/people/")({ component: PeoplePage });
 
 function PeoplePage() {
+  const { tx } = useI18n();
   const [role, setRole] = useState<Role | "all">("all");
   const [period, setPeriod] = useState<Period | "all">("all");
 
@@ -35,9 +37,9 @@ function PeoplePage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="font-serif text-4xl text-neva">People</h1>
+      <h1 className="font-serif text-4xl text-neva">{tx("People")}</h1>
       <p className="mt-3 max-w-3xl text-lg">
-        Women and men who made things, wrote, painted, played music, or asked fair questions.
+        {tx("Women and men who made things, wrote, painted, played music, or asked fair questions.")}
       </p>
       <div className="mt-4 max-w-xl">
         <SearchBox />
@@ -59,7 +61,7 @@ function PeoplePage() {
                   : "border-neva bg-card text-neva disabled:opacity-40")
               }
             >
-              {item.label}
+              {tx(item.label)}
             </button>
           );
         })}
@@ -81,7 +83,7 @@ function PeoplePage() {
                   : "border-neva bg-card text-neva disabled:opacity-40")
               }
             >
-              {item.label}
+              {tx(item.label)}
             </button>
           );
         })}
@@ -90,27 +92,27 @@ function PeoplePage() {
         {shown.map((person) => (
           <li key={person.slug} className="flex gap-3 rounded-card border border-neva/20 bg-card p-3">
             <div className="w-20 shrink-0">
-              <CartoonPortrait slug={person.slug} name={person.name} />
+              <CartoonPortrait slug={person.slug} name={tx(person.name)} />
             </div>
             <div className="min-w-0">
               <Link to="/people/$slug" params={{ slug: person.slug }} className="font-serif text-2xl text-neva no-underline">
-                {person.name}
+                {tx(person.name)}
               </Link>
               <p className="text-ink">
                 {person.nameRu} · {person.latin}
               </p>
-              <p className="text-ink">{person.years}</p>
-              <p className="mt-1 text-ink">{person.knownFor}</p>
+              <p className="text-ink">{tx(person.years)}</p>
+              <p className="mt-1 text-ink">{tx(person.knownFor)}</p>
             </div>
           </li>
         ))}
       </ul>
-      <h2 className="mt-10 font-serif text-3xl text-neva">Things they made or found</h2>
+      <h2 className="mt-10 font-serif text-3xl text-neva">{tx("Things they made or found")}</h2>
       <ul className="mt-4 space-y-4">
         {inventions.map((item) => (
           <li key={item.title} className="rounded-card border border-neva/20 bg-card p-4">
-            <p className="font-semibold text-neva">{item.title}</p>
-            <p className="mt-1 text-ink">{item.text}</p>
+            <p className="font-semibold text-neva">{tx(item.title)}</p>
+            <p className="mt-1 text-ink">{tx(item.text)}</p>
             <p className="mt-2">
               {item.slugs.map((slug, index) => {
                 const person = people.find((entry) => entry.slug === slug);
@@ -119,7 +121,7 @@ function PeoplePage() {
                   <span key={slug}>
                     {index > 0 ? ", " : ""}
                     <Link to="/people/$slug" params={{ slug }} className="underline">
-                      {person.name}
+                      {tx(person.name)}
                     </Link>
                   </span>
                 );

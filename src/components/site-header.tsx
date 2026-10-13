@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { LanguageButton } from "@/components/language-button";
+import { useI18n } from "@/i18n/provider";
 
 const tabs = [
   { to: "/", label: "Home", exact: true },
@@ -16,18 +18,20 @@ const tabClass =
   "inline-flex min-h-11 w-fit max-w-full items-center justify-center justify-self-center rounded-md px-2 text-center text-sm leading-tight font-semibold text-paper no-underline sm:px-3 sm:text-base";
 
 export function SiteHeader() {
+  const { tx } = useI18n();
   return (
     <header className="sticky top-0 z-40 border-b-4 border-banner bg-neva text-paper">
       <div className="mx-auto max-w-6xl px-3 py-2 sm:px-4">
-        <Link to="/" className="block text-paper no-underline">
-          <span className="block font-serif text-xl leading-tight font-semibold sm:text-2xl">
-            Every Russian Ever
-          </span>
-          <span className="mt-0.5 block font-serif text-base leading-tight text-paper">
-            Россия для всех
-          </span>
-        </Link>
-        <nav aria-label="Pages" className="mt-2 grid grid-cols-3 gap-1">
+        <div className="flex items-start justify-between gap-2">
+          <Link to="/" className="min-w-0 flex-1 text-paper no-underline">
+            <span className="block font-serif text-xl leading-tight font-semibold sm:text-2xl">
+              {tx("Every Russian Ever")}
+            </span>
+            <span className="mt-0.5 block font-serif text-base leading-tight text-paper">Россия для всех</span>
+          </Link>
+          <LanguageButton />
+        </div>
+        <nav aria-label={tx("Pages")} className="mt-2 grid grid-cols-3 gap-1">
           {tabs.map((tab) => (
             <Link
               key={tab.label}
@@ -38,7 +42,7 @@ export function SiteHeader() {
                 className: `${tabClass} border-b-4 border-banner`,
               }}
             >
-              {tab.label}
+              {tx(tab.label)}
             </Link>
           ))}
         </nav>

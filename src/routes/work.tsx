@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useI18n } from "@/i18n/provider";
 
 export const Route = createFileRoute("/work")({ component: WorkPage });
 
@@ -44,11 +45,12 @@ const blanks = [
 ];
 
 function WorkPage() {
+  const { tx } = useI18n();
   const [sheet, setSheet] = useState<"bank" | "match" | "time" | "listen">("bank");
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="font-serif text-4xl text-neva">Work</h1>
-      <p className="mt-3 text-lg">Print a sheet and take it to class.</p>
+      <h1 className="font-serif text-4xl text-neva">{tx("Work")}</h1>
+      <p className="mt-3 text-lg">{tx("Print a sheet and take it to class.")}</p>
       <div className="no-print mt-4 flex flex-wrap gap-2">
         {(
           [
@@ -67,22 +69,22 @@ function WorkPage() {
               (sheet === id ? "bg-neva text-paper" : "bg-card text-neva")
             }
           >
-            {label}
+            {tx(label)}
           </button>
         ))}
         <button type="button" onClick={() => window.print()} className="min-h-11 rounded-md bg-banner px-4 font-semibold text-paper">
-          Print this sheet
+          {tx("Print this sheet")}
         </button>
       </div>
 
       {sheet === "bank" ? (
         <section className="mt-6">
-          <h2 className="font-serif text-2xl text-neva">Place word bank</h2>
-          <p className="mt-2">Use these names in your writing. Each place has a Russian name and an English name.</p>
+          <h2 className="font-serif text-2xl text-neva">{tx("Place word bank")}</h2>
+          <p className="mt-2">{tx("Use these names in your writing. Each place has a Russian name and an English name.")}</p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {bank.map(([ru, en]) => (
               <li key={ru} className="rounded-md bg-card px-3 py-2">
-                {ru} · {en}
+                {ru} · {tx(en)}
               </li>
             ))}
           </ul>
@@ -91,20 +93,20 @@ function WorkPage() {
 
       {sheet === "match" ? (
         <section className="mt-6">
-          <h2 className="font-serif text-2xl text-neva">Who and where</h2>
-          <p className="mt-2">Draw a line from a person to a place. The two lists are not in the same order.</p>
+          <h2 className="font-serif text-2xl text-neva">{tx("Who and where")}</h2>
+          <p className="mt-2">{tx("Draw a line from a person to a place. The two lists are not in the same order.")}</p>
           <div className="mt-4 grid grid-cols-2 gap-4">
             <ol className="space-y-3">
               {who.map((name) => (
                 <li key={name} className="rounded-md bg-card px-3 py-2">
-                  {name}
+                  {tx(name)}
                 </li>
               ))}
             </ol>
             <ol className="space-y-3">
               {[where[3], where[0], where[6], where[1], where[7], where[4], where[2], where[5]].map((name, index) => (
                 <li key={`${name}-${index}`} className="rounded-md bg-card px-3 py-2">
-                  {name}
+                  {tx(name)}
                 </li>
               ))}
             </ol>
@@ -114,12 +116,14 @@ function WorkPage() {
 
       {sheet === "time" ? (
         <section className="mt-6">
-          <h2 className="font-serif text-2xl text-neva">Timeline with blanks</h2>
-          <p className="mt-2">Year bank: {years.join(", ")}</p>
+          <h2 className="font-serif text-2xl text-neva">{tx("Timeline with blanks")}</h2>
+          <p className="mt-2">
+            {tx("Year bank")}: {years.join(", ")}
+          </p>
           <ol className="mt-4 space-y-3">
             {blanks.map((line) => (
               <li key={line} className="rounded-md bg-card px-3 py-3">
-                ________ — {line}
+                ________ — {tx(line)}
               </li>
             ))}
           </ol>
@@ -128,11 +132,11 @@ function WorkPage() {
 
       {sheet === "listen" ? (
         <section className="mt-6 space-y-3 text-lg">
-          <h2 className="font-serif text-2xl text-neva">Listening</h2>
-          <p>The state anthem uses a tune written by Alexander Alexandrov.</p>
-          <p>He wrote the tune first for an earlier anthem.</p>
-          <p>The words used now were written later.</p>
-          <p>People hear the tune at sports and on national days.</p>
+          <h2 className="font-serif text-2xl text-neva">{tx("Listening")}</h2>
+          <p>{tx("The state anthem uses a tune written by Alexander Alexandrov.")}</p>
+          <p>{tx("He wrote the tune first for an earlier anthem.")}</p>
+          <p>{tx("The words used now were written later.")}</p>
+          <p>{tx("People hear the tune at sports and on national days.")}</p>
         </section>
       ) : null}
     </main>

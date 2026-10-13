@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { places } from "@/data/places";
+import { useI18n } from "@/i18n/provider";
 
 const layout: Record<string, { x: number; y: number }> = {
   kaliningrad: { x: 8, y: 12 },
@@ -27,6 +28,7 @@ const layout: Record<string, { x: number; y: number }> = {
 };
 
 export function RussiaMap() {
+  const { tx } = useI18n();
   return (
     <div>
       <div className="relative min-h-[28rem] w-full overflow-hidden rounded-card border border-neva/30 bg-paper sm:min-h-[36rem]">
@@ -61,20 +63,20 @@ export function RussiaMap() {
               className="absolute flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-banner text-sm font-semibold text-paper no-underline"
               style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
             >
-              <span className="sr-only">{place.name}</span>
+              <span className="sr-only">{tx(place.name)}</span>
               {index + 1}
             </Link>
           );
         })}
       </div>
       <p className="mt-2 text-base text-ink">
-        North is at the top. This is a simple map of Russia. Kaliningrad is drawn on its own. It does not touch the main land. Marks are spaced so you can tap them.
+        {tx("North is at the top. This is a simple map of Russia. Kaliningrad is drawn on its own. It does not touch the main land. Marks are spaced so you can tap them.")}
       </p>
       <ol className="mt-3 grid gap-2 sm:grid-cols-2">
         {places.map((place, index) => (
           <li key={place.slug}>
             <Link to="/places/$slug" params={{ slug: place.slug }} className="text-neva underline">
-              {index + 1}. {place.name} · {place.nameRu}
+              {index + 1}. {tx(place.name)} · {place.nameRu}
             </Link>
           </li>
         ))}

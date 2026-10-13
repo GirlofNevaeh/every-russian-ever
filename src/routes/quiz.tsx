@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { QUIZ_LENGTH, questions, type QuizQuestion } from "@/data/quiz";
+import { useI18n } from "@/i18n/provider";
 
 export const Route = createFileRoute("/quiz")({ component: QuizPage });
 
@@ -20,6 +21,7 @@ function shuffleIndexes(count: number, seed: number) {
 }
 
 function QuizPage() {
+  const { tx, txf } = useI18n();
   const [mode, setMode] = useState<"solo" | "class" | null>(null);
   const [roundSize, setRoundSize] = useState<10 | "all">(10);
   const [teams, setTeams] = useState<Team[]>([
@@ -86,10 +88,14 @@ function QuizPage() {
 
   const suddenReady = suddenPicks.length > 0 && suddenPicks.every((pick) => pick !== null);
 
-  const scoreLine = useMemo(() => {
-    if (mode === "solo") return `${score} correct`;
-    return teams.map((team) => `${team.name}: ${team.score}`).join(" · ");
-  }, [mode, score, teams]);
+  function teamLabel(name: string) {
+    return /^(Team (One|Two|Three|Four|Five|Six))$/.test(name) ? tx(name) : name;
+  }
+
+  const scoreLine =
+    mode === "solo"
+      ? txf("{n} correct", { n: score })
+      : teams.map((team) => `${teamLabel(team.name)}: ${team.score}`).join(" · ");
 
   function begin() {
     const count = roundSize === "all" ? questions.length : 10;
@@ -170,14 +176,16 @@ function QuizPage() {
   if (!mode) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8">
-        <h1 className="font-serif text-4xl text-neva">Quiz</h1>
-        <p className="mt-3 text-lg">This quiz has {QUIZ_LENGTH} questions. A round can be 10, or the whole set.</p>
+        <h1 className="font-serif text-4xl text-neva">{tx("Quiz")}</h1>
+        <p className="mt-3 text-lg">
+          {txf("This quiz has {n} questions. A round can be 10, or the whole set.", { n: QUIZ_LENGTH })}
+        </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <button type="button" className="min-h-11 rounded-md bg-banner px-4 font-semibold text-paper" onClick={() => setMode("solo")}>
-            Solo play
+            {tx("Solo play")}
           </button>
           <button type="button" className="min-h-11 rounded-md bg-banner px-4 font-semibold text-paper" onClick={() => setMode("class")}>
-            Class mode
+            {tx("Class mode")}
           </button>
         </div>
       </main>
@@ -187,33 +195,35 @@ function QuizPage() {
   if (!started) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8">
-        <h1 className="font-serif text-4xl text-neva">{mode === "solo" ? "Solo play" : "Class mode"}</h1>
+        <h1 className="font-serif text-4xl text-neva">{mode === "solo" ? tx("Solo play") : tx("Class mode")}</h1>
         <div className="mt-4 flex flex-wrap gap-2">
           <button
             type="button"
             className={"min-h-11 rounded-md border-2 border-neva px-4 font-semibold " + (roundSize === 10 ? "bg-neva text-paper" : "bg-card text-neva")}
             onClick={() => setRoundSize(10)}
           >
-            10 questions
+            {tx("10 questions")}
           </button>
           <button
             type="button"
             className={"min-h-11 rounded-md border-2 border-neva px-4 font-semibold " + (roundSize === "all" ? "bg-neva text-paper" : "bg-card text-neva")}
             onClick={() => setRoundSize("all")}
           >
-            All {QUIZ_LENGTH}
+            {txf("All {n}", { n: QUIZ_LENGTH })}
           </button>
         </div>
         {mode === "class" ? (
           <div className="mt-6 space-y-3">
             {teams.map((team, teamIndex) => (
               <label key={teamIndex} className="block">
-                <span className="text-neva">Team {teamIndex + 1}</span>
+                <span className="text-neva">{txf("Team {n}", { n: teamIndex + 1 })}</span>
                 <input
-                  value={team.name}
+                  value={teamLabel(team.name)}
                   onChange={(event) =>
                     setTeams((current) =>
-                      current.map((item, index) => (index === teamIndex ? { ...item, name: event.target.value } : item)),
+                      current.map((item, index) =>
+                        index === teamIndex ? { ...item, name: event.target.value } : item,
+                      ),
                     )
                   }
                   className="mt-1 min-h-11 w-full rounded-md border-2 border-neva bg-card px-3"
@@ -227,7 +237,7 @@ function QuizPage() {
                   className="min-h-11 rounded-md border-2 border-neva px-3 font-semibold text-neva"
                   onClick={() => setTeams((current) => [...current, { name: `Team ${current.length + 1}`, score: 0 }])}
                 >
-                  Add a team
+                  {tx("Add a team")}
                 </button>
               ) : null}
               {teams.length > 2 ? (
@@ -236,14 +246,14 @@ function QuizPage() {
                   className="min-h-11 rounded-md border-2 border-neva px-3 font-semibold text-neva"
                   onClick={() => setTeams((current) => current.slice(0, -1))}
                 >
-                  Remove a team
+                  {tx("Remove a team")}
                 </button>
               ) : null}
             </div>
           </div>
         ) : null}
         <button type="button" className="mt-6 min-h-11 rounded-md bg-banner px-4 font-semibold text-paper" onClick={begin}>
-          Start
+          {tx("Start")}
         </button>
       </main>
     );
@@ -252,9 +262,9 @@ function QuizPage() {
   if (done) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8">
-        <h1 className="font-serif text-4xl text-neva">Round finished</h1>
+        <h1 className="font-serif text-4xl text-neva">{tx("Round finished")}</h1>
         <p className="mt-3 text-lg">{scoreLine}</p>
-        {winner ? <p className="mt-2 text-lg">{winner} is ahead.</p> : null}
+        {winner ? <p className="mt-2 text-lg">{txf("{name} is ahead.", { name: teamLabel(winner) })}</p> : null}
         <button
           type="button"
           className="mt-6 min-h-11 rounded-md bg-banner px-4 font-semibold text-paper"
@@ -264,7 +274,7 @@ function QuizPage() {
             setMode(null);
           }}
         >
-          Play again
+          {tx("Play again")}
         </button>
       </main>
     );
@@ -273,13 +283,15 @@ function QuizPage() {
   if (suddenQuestion) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8">
-        <h1 className="font-serif text-4xl text-neva">Sudden death</h1>
-        <p className="mt-3 text-lg">These teams are level. Every tied team answers before anyone is told the answer.</p>
-        <p className="mt-4 text-xl text-ink">{suddenQuestion.prompt}</p>
+        <h1 className="font-serif text-4xl text-neva">{tx("Sudden death")}</h1>
+        <p className="mt-3 text-lg">
+          {tx("These teams are level. Every tied team answers before anyone is told the answer.")}
+        </p>
+        <p className="mt-4 text-xl text-ink">{tx(suddenQuestion.prompt)}</p>
         <div className="mt-4 space-y-4">
           {suddenTeams.map((teamIndex, offset) => (
             <div key={teamIndex}>
-              <p className="font-semibold text-neva">{teams[teamIndex]?.name}</p>
+              <p className="font-semibold text-neva">{teamLabel(teams[teamIndex]?.name ?? "")}</p>
               <div className="mt-2 grid gap-2">
                 {suddenQuestion.choices.map((choice, choiceIndex) => {
                   const picked = suddenPicks[offset] === choiceIndex;
@@ -301,7 +313,7 @@ function QuizPage() {
                         (mark || picked ? "border-neva bg-neva text-paper" : "border-neva bg-card text-ink")
                       }
                     >
-                      {choice}
+                      {tx(choice)}
                     </button>
                   );
                 })}
@@ -316,11 +328,11 @@ function QuizPage() {
             onClick={revealSudden}
             className="mt-4 min-h-11 rounded-md bg-banner px-4 font-semibold text-paper disabled:opacity-40"
           >
-            Show the answer
+            {tx("Show the answer")}
           </button>
         ) : (
           <p className="mt-4 text-lg">
-            The answer is {suddenQuestion.choices[suddenQuestion.answer]}.
+            {txf("The answer is {answer}.", { answer: tx(suddenQuestion.choices[suddenQuestion.answer]) })}
           </p>
         )}
       </main>
@@ -332,9 +344,9 @@ function QuizPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
       <p className="text-neva">
-        Question {index + 1} of {order.length}
+        {txf("Question {n} of {m}", { n: index + 1, m: order.length })}
       </p>
-      <h1 className="mt-2 font-serif text-3xl text-neva">{question.prompt}</h1>
+      <h1 className="mt-2 font-serif text-3xl text-neva">{tx(question.prompt)}</h1>
       {mode === "solo" ? (
         <div className="mt-4 grid gap-2">
           {question.choices.map((choice, choiceIndex) => {
@@ -351,7 +363,7 @@ function QuizPage() {
                   (mark || picked ? "border-neva bg-neva text-paper" : "border-neva bg-card text-ink")
                 }
               >
-                {choice}
+                {tx(choice)}
               </button>
             );
           })}
@@ -360,7 +372,7 @@ function QuizPage() {
         <div className="mt-4 space-y-5">
           {teams.map((team, teamIndex) => (
             <div key={team.name}>
-              <p className="font-semibold text-neva">{team.name}</p>
+              <p className="font-semibold text-neva">{teamLabel(team.name)}</p>
               <div className="mt-2 grid gap-2">
                 {question.choices.map((choice, choiceIndex) => {
                   const picked = teamPicks[teamIndex] === choiceIndex;
@@ -376,7 +388,7 @@ function QuizPage() {
                         (mark || picked ? "border-neva bg-neva text-paper" : "border-neva bg-card text-ink")
                       }
                     >
-                      {choice}
+                      {tx(choice)}
                     </button>
                   );
                 })}
@@ -390,15 +402,16 @@ function QuizPage() {
               onClick={revealTeams}
               className="min-h-11 rounded-md bg-banner px-4 font-semibold text-paper disabled:opacity-40"
             >
-              Show the answer
+              {tx("Show the answer")}
             </button>
           ) : null}
         </div>
       )}
       {show ? (
         <p className="mt-4 text-lg text-ink">
-          {mode === "solo" && soloPick === question.answer ? "Yes. " : "The answer is "}
-          {question.choices[question.answer]}.
+          {mode === "solo" && soloPick === question.answer
+            ? `${tx("Yes.")} ${tx(question.choices[question.answer])}.`
+            : txf("The answer is {answer}.", { answer: tx(question.choices[question.answer]) })}
         </p>
       ) : null}
       <p className="mt-4 text-base text-ink">{scoreLine}</p>
