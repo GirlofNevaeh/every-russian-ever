@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Every Russian Ever">
+  <rect width="32" height="32" rx="6" fill="#143A78"/>
+  <rect x="6" y="5" width="20" height="22" rx="1.5" fill="#F4F6F8"/>
+  <rect x="14.2" y="5" width="3.6" height="22" fill="#143A78"/>
+  <rect x="15.2" y="5" width="1.6" height="22" fill="#C8102E"/>
+  <path d="M8.2 12h4.4M8.2 16.6h4.4M19.4 12h4.4M19.4 16.6h4.4" stroke="#143A78" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
