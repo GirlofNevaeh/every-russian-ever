@@ -1,10 +1,29 @@
 import type { Motif } from "@/data/people";
 import type { PhotoCredit } from "@/data/photos";
+import { useI18n } from "@/i18n/provider";
+
+export function PhotoCreditLine({ photo }: { photo: PhotoCredit }) {
+  const { tx } = useI18n();
+  return (
+    <p className="text-base text-ink">
+      {photo.photographer}
+      {" · "}
+      {photo.licence}
+      {" · "}
+      <a href={photo.source} className="text-neva underline" rel="noreferrer" target="_blank">
+        {tx("Source")}
+      </a>
+    </p>
+  );
+}
 
 export function PhotoFigure({ photo, alt }: { photo: PhotoCredit; alt: string }) {
   return (
     <figure className="overflow-hidden rounded-card border border-neva/20 bg-card">
       <img src={photo.src} alt={alt} className="aspect-[4/3] w-full object-cover" />
+      <figcaption className="px-3 py-2">
+        <PhotoCreditLine photo={photo} />
+      </figcaption>
     </figure>
   );
 }

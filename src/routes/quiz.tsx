@@ -7,6 +7,8 @@ export const Route = createFileRoute("/quiz")({ component: QuizPage });
 
 type Team = { name: string; score: number };
 
+const TEAM_NAMES = ["Team One", "Team Two", "Team Three", "Team Four", "Team Five", "Team Six"];
+
 function shuffleIndexes(count: number, seed: number) {
   const list = Array.from({ length: questions.length }, (_, index) => index);
   let h = seed || 1;
@@ -68,10 +70,12 @@ function QuizPage() {
       .filter((item) => item.team.score === top);
     if (tied.length > 1) {
       const used = new Set(order);
-      const spare =
-        questions.findIndex((question, questionIndex) => question.tieBreak && !used.has(questionIndex)) ??
-        questions.findIndex((_, questionIndex) => !used.has(questionIndex));
-      const pick = spare >= 0 ? spare : 0;
+      const spareTie = questions.findIndex(
+        (question, questionIndex) => question.tieBreak && !used.has(questionIndex),
+      );
+      const spareAny = questions.findIndex((_, questionIndex) => !used.has(questionIndex));
+      const spareRepeat = questions.findIndex((question) => question.tieBreak);
+      const pick = spareTie >= 0 ? spareTie : spareAny >= 0 ? spareAny : spareRepeat >= 0 ? spareRepeat : 0;
       setSuddenTeams(tied.map((item) => item.teamIndex));
       setSuddenQuestion(questions[pick]);
       setSuddenPicks(tied.map(() => null));
@@ -235,7 +239,12 @@ function QuizPage() {
                 <button
                   type="button"
                   className="min-h-11 rounded-md border-2 border-neva px-3 font-semibold text-neva"
-                  onClick={() => setTeams((current) => [...current, { name: `Team ${current.length + 1}`, score: 0 }])}
+                  onClick={() =>
+                    setTeams((current) => [
+                      ...current,
+                      { name: TEAM_NAMES[current.length] ?? "Team Six", score: 0 },
+                    ])
+                  }
                 >
                   {tx("Add a team")}
                 </button>

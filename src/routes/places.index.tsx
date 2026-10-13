@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { RussiaMap } from "@/components/russia-map";
+import { PhotoCreditLine } from "@/components/portrait";
 import { places } from "@/data/places";
 import { placePhotos } from "@/data/photos";
 import { regions } from "@/data/regions";
@@ -22,7 +23,12 @@ function PlacesPage() {
           return (
             <li key={place.slug} className="rounded-card border border-neva/20 bg-card p-4">
               {photo ? (
-                <img src={photo.src} alt={tx(place.name)} className="mb-3 aspect-[4/3] w-full rounded-md object-cover" />
+                <>
+                  <img src={photo.src} alt={tx(place.name)} className="mb-2 aspect-[4/3] w-full rounded-md object-cover" />
+                  <div className="mb-3">
+                    <PhotoCreditLine photo={photo} />
+                  </div>
+                </>
               ) : null}
               <Link to="/places/$slug" params={{ slug: place.slug }} className="font-serif text-2xl text-neva no-underline">
                 {tx(place.name)}
