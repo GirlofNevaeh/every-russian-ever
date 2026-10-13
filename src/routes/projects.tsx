@@ -36,7 +36,7 @@ function ProjectsPage() {
       <div className="mt-3 max-w-3xl space-y-3 text-lg">
         <p>
           {tx(
-            "In Russia, children usually start Year 1 at about age 7. Age 5-6 is before school. Ages 7 to 10 are young learners. Age 11-12 is the start of the next school.",
+            "In Russia, children usually start Year 1 at about age 7. These projects are for Age 5-12.",
           )}
         </p>
         <p>{tx("Use facts from this site.")}</p>

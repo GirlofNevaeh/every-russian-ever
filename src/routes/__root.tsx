@@ -15,7 +15,7 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: "A history of Russia for young learners, ages 5 to 12.",
+        content: "A history of Russia for young learners, Age 5-12.",
       },
       { name: "theme-color", content: "#143A78" },
     ],
