@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { purchaseHref } from "@/components/paywall";
 import { useI18n } from "@/i18n/provider";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -25,7 +26,7 @@ function Home() {
       </figure>
       <p>
         <a
-          href="https://everyschoolever.com"
+          href={purchaseHref}
           className="inline-flex min-h-11 items-center rounded-md bg-banner px-5 font-semibold text-paper no-underline"
         >
           {tx("Purchase access")}
