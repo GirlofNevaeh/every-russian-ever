@@ -212,7 +212,7 @@ export const regions: Region[] = [
     mainCity: "Kaliningrad",
     mainCityRu: "Калининград",
     land: "By the Baltic Sea, between Poland and Lithuania. It is separate from the mainland.",
-    facts: ["This city was called Königsberg before.", "It is part of Russia, and it does not touch the mainland."],
+    facts: ["This city used to be called Königsberg.", "It is part of Russia, and it does not touch the mainland."],
     placeSlug: "kaliningrad",
     aliases: ["kaliningrad", "калининград", "konigsberg", "königsberg"],
     shape: "M18 28h52l8 16-12 22H22L8 46z",

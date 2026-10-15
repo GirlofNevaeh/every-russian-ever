@@ -265,7 +265,7 @@ export const people: Person[] = [
     years: "1860–1904",
     knownFor: "He wrote plays and short stories. He was also a doctor.",
     bio: [
-      "He was born in Taganrog, by the sea of Azov.",
+      "He was born in Taganrog, by the Sea of Azov.",
       "He wrote short stories and plays such as The Cherry Orchard.",
       "He worked as a doctor, and he travelled to Sakhalin to report on a far island.",
     ],
@@ -1199,7 +1199,7 @@ export const people: Person[] = [
     bio: [
       "He was born in Moscow.",
       "He wrote many plays about merchants and households.",
-      "The Storm is one of the best known.",
+      "The Storm is one of the best-known plays.",
     ],
     role: "writer",
     period: "1800-1916",

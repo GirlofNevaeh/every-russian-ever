@@ -64,7 +64,7 @@ export const timeline: TimelineEvent[] = [
     id: "years-1941",
     when: "1941–1945",
     title: "A hard war",
-    text: "From 1941 to 1945 Germany's army entered. Many families were hurt. The war ended in 1945. The city of Volgograd was called Stalingrad then.",
+    text: "From 1941 to 1945 Germany's army entered the country. Many families were hurt. The war ended in 1945. The city of Volgograd was called Stalingrad then.",
   },
   {
     id: "sputnik",

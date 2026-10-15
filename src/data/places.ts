@@ -309,7 +309,7 @@ export const places: Place[] = [
     lines: [
       "Kaliningrad is part of Russia. It does not touch the mainland.",
       "It sits by the Baltic Sea, between Poland and Lithuania.",
-      "This city was called Königsberg before.",
+      "This city used to be called Königsberg.",
     ],
   }),
   place({

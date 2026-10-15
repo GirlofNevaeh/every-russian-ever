@@ -220,7 +220,7 @@ function QuizPage() {
           <div className="mt-6 space-y-3">
             {teams.map((team, teamIndex) => (
               <label key={teamIndex} className="block">
-                <span className="text-neva">{txf("Team {n}", { n: teamIndex + 1 })}</span>
+                <span className="text-neva">{tx(TEAM_NAMES[teamIndex] ?? team.name)}</span>
                 <input
                   value={teamLabel(team.name)}
                   onChange={(event) =>
