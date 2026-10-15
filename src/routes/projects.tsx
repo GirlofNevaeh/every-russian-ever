@@ -69,7 +69,7 @@ function ProjectsPage() {
               {tx(project.need)}
             </p>
             <p>
-              <span className="font-semibold text-neva">{tx("You are done when.")} </span>
+              <span className="font-semibold text-neva">{tx("When you are done:")} </span>
               {tx(project.done)}
             </p>
             <p className="mt-3">{tx("A class may answer in Russian.")}</p>

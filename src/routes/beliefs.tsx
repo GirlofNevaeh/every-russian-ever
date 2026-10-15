@@ -9,7 +9,7 @@ function Beliefs() {
     <main className="mx-auto max-w-3xl space-y-4 px-4 py-8 text-lg">
       <h1 className="font-serif text-4xl text-neva">{tx("Beliefs")}</h1>
       <p>{tx("The Firebird and Baba Yaga are stories, not the news.")}</p>
-      <p>{tx("People tell them to wonder, and to feel a little shiver, and then they come home.")}</p>
+      <p>{tx("People tell them for wonder, and for a little shiver, and then they come home.")}</p>
       <h2 className="pt-2 font-serif text-2xl text-neva">{tx("Churches and holy days")}</h2>
       <p>{tx("Churches and icons are part of Christian life here.")}</p>
       <p>{tx("At Easter, many families colour eggs and bake a tall sweet bread.")}</p>

@@ -74,7 +74,7 @@ const core: QuizQuestion[] = [
   mc("sputnik", "What happened in 1957?", "A team sent up Sputnik.", ["Serfdom ended.", "The tsar stepped down.", "The constitution of 1993 was written."]),
   mc("war-end", "The war of 1941 to 1945 ended in which year?", "1945", ["1812", "1917", "2022"]),
   mc("1812", "What happened in 1812?", "An army from France reached Moscow.", ["The first dated book was printed.", "Baikal was dug by hand.", "The Soviet Union ended."]),
-  mc("kalin-sep", "Where is Kaliningrad?", "It is part of Russia and separate from the main land.", ["It is attached to Moscow.", "It is in Kamchatka.", "It is a lake."]),
+  mc("kalin-sep", "Where is Kaliningrad?", "It is part of Russia and separate from the mainland.", ["It is attached to Moscow.", "It is in Kamchatka.", "It is a lake."]),
   mc("konigs", "What was Kaliningrad called before?", "Königsberg", ["Leningrad", "Novgorod", "Yakutsk"]),
   mc("elbrus", "What is the highest mountain in Russia?", "Elbrus", ["The Urals", "Baikal", "Kizhi"], true),
   mc("deep", "Which lake is the deepest in the world?", "Baikal", ["Onega", "Ladoga", "The Caspian Sea"]),

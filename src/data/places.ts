@@ -307,7 +307,7 @@ export const places: Place[] = [
     y: 46,
     aliases: ["kaliningrad", "konigsberg", "königsberg", "кенигсберг"],
     lines: [
-      "Kaliningrad is part of Russia. It does not touch the main land.",
+      "Kaliningrad is part of Russia. It does not touch the mainland.",
       "It sits by the Baltic Sea, between Poland and Lithuania.",
       "This city was called Königsberg before.",
     ],

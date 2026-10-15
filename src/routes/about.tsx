@@ -18,7 +18,7 @@ function About() {
       <p>{tx("Japan and Russia do not agree about the southern Kuril Islands.")}</p>
       <p>{tx("In 2022 Russia's army went into Ukraine. Many families were hurt.")}</p>
       <p>{tx("A person born in a town that is now in another country is named with the town then and the country now.")}</p>
-      <p>{tx("Kaliningrad is part of Russia. It is separate from the main land, between Poland and Lithuania.")}</p>
+      <p>{tx("Kaliningrad is part of Russia. It is separate from the mainland, between Poland and Lithuania.")}</p>
       <p>{tx("Many children in Russia have family from other countries, or speak another language at home. They belong in today's Russia.")}</p>
     </main>
   );

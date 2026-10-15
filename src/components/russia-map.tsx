@@ -70,7 +70,7 @@ export function RussiaMap() {
         })}
       </div>
       <p className="mt-2 text-base text-ink">
-        {tx("North is at the top. This is a simple map of Russia. Kaliningrad is drawn on its own. It does not touch the main land. Marks are spaced so you can tap them.")}
+        {tx("North is at the top. This is a simple map of Russia. Kaliningrad is drawn on its own. It does not touch the mainland. Marks are spaced so you can tap them.")}
       </p>
       <ol className="mt-3 grid gap-2 sm:grid-cols-2">
         {places.map((place, index) => (
