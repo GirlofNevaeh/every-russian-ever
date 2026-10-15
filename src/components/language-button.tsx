@@ -25,13 +25,13 @@ export function LanguageButton() {
   }, [open]);
 
   return (
-    <div ref={rootRef} className="relative z-50 shrink-0">
+    <div ref={rootRef} className="relative z-50 ml-auto shrink-0">
       <button
         type="button"
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label={tx("Language")}
-        className="h-9 rounded-full border-2 border-paper bg-paper px-3 text-xs font-semibold text-neva sm:text-sm"
+        className="h-9 max-w-full rounded-full border-2 border-paper bg-paper px-3 text-xs font-semibold text-neva sm:text-sm"
         onClick={() => setOpen((value) => !value)}
       >
         {current.label}
@@ -40,7 +40,7 @@ export function LanguageButton() {
         <ul
           role="listbox"
           aria-label={tx("Language")}
-          className="absolute right-0 z-50 mt-1 max-h-[70vh] w-40 overflow-y-auto rounded-md border-2 border-neva bg-paper p-1 text-ink shadow"
+          className="absolute right-0 z-50 mt-1 max-h-[70vh] w-48 overflow-y-auto rounded-md border-2 border-neva bg-paper p-1 text-ink shadow"
         >
           {locales.map((item) => (
             <li key={item.id}>

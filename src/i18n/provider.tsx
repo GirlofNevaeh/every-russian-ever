@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import enUS from "@/i18n/packs/en-US.json";
 import gd from "@/i18n/packs/gd.json";
 import cy from "@/i18n/packs/cy.json";
 import ga from "@/i18n/packs/ga.json";
@@ -10,6 +11,7 @@ import ru from "@/i18n/packs/ru.json";
 import { isLocale, type Locale } from "@/i18n/locales";
 
 const packs: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  "en-US": enUS,
   gd,
   cy,
   ga,

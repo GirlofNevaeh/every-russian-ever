@@ -22,8 +22,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b-4 border-banner bg-neva text-paper">
       <div className="mx-auto max-w-6xl px-3 py-2 sm:px-4">
-        <div className="flex items-start justify-between gap-2">
-          <Link to="/" className="min-w-0 flex-1 text-paper no-underline">
+        <div className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
+          <Link to="/" className="min-w-0 text-paper no-underline">
             <span className="block font-serif text-xl leading-tight font-semibold sm:text-2xl">
               {tx("Every Russian Ever")}
             </span>
