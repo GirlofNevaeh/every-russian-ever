@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { QUIZ_LENGTH, questions, type QuizQuestion } from "@/data/quiz";
+import { playCheer, playFart } from "@/lib/quiz-sounds";
 import { useI18n } from "@/i18n/provider";
 
 export const Route = createFileRoute("/quiz")({ component: QuizPage });
@@ -119,7 +120,10 @@ function QuizPage() {
   function answerSolo(choice: number) {
     if (show || soloPick !== null || !question) return;
     setSoloPick(choice);
-    if (choice === question.answer) setScore((value) => value + 1);
+    const correct = choice === question.answer;
+    if (correct) setScore((value) => value + 1);
+    if (correct) playCheer();
+    else playFart();
     setShow(true);
   }
 
@@ -134,6 +138,10 @@ function QuizPage() {
 
   function revealTeams() {
     if (!question || show || !allTeamsReady) return;
+    const anyRight = teamPicks.some((pick) => pick === question.answer);
+    const anyWrong = teamPicks.some((pick) => pick !== null && pick !== question.answer);
+    if (anyRight) playCheer();
+    if (anyWrong) playFart();
     setTeams((current) =>
       current.map((team, teamIndex) =>
         teamPicks[teamIndex] === question.answer ? { ...team, score: team.score + 1 } : team,
@@ -147,6 +155,8 @@ function QuizPage() {
     const correctIndexes = suddenTeams.filter(
       (_, offset) => suddenPicks[offset] === suddenQuestion.answer,
     );
+    if (correctIndexes.length > 0) playCheer();
+    if (correctIndexes.length < suddenTeams.length) playFart();
     setTeams((current) =>
       current.map((team, teamIndex) =>
         correctIndexes.includes(teamIndex) ? { ...team, score: team.score + 1 } : team,
